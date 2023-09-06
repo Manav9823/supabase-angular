@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SupabaseService } from './supabase.service'
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'supabase-angular';
+  session = this.supabase.session
+
+  constructor(private readonly supabase: SupabaseService) {}
+
+  ngOnInit() {
+    this.supabase.authChanges((_, session) => (this.session = session))
+  }
 }
